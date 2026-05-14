@@ -22,7 +22,7 @@ public class ConvertHandler implements HttpHandler {
         try {
             User user = jsonMapper.readValue(exchange.getRequestBody(), User.class);
 
-            if ("Виталий".equalsIgnoreCase(user.name)) {
+            if (!"Витя".equalsIgnoreCase(user.name)) {
                 String errorXml = "<response><error>This user does not exist.</error></response>";
                 sendResponse(exchange, 404, errorXml);
                 return;
