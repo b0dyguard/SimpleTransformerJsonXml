@@ -7,7 +7,6 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 
 public class ConvertHandler implements HttpHandler {
     private final ObjectMapper jsonMapper = new ObjectMapper();
