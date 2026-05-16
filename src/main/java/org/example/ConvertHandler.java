@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import org.example.ErrorXml;
 
 public class ConvertHandler implements HttpHandler {
     private final ObjectMapper jsonMapper = new ObjectMapper();
@@ -23,8 +24,8 @@ public class ConvertHandler implements HttpHandler {
             User user = jsonMapper.readValue(exchange.getRequestBody(), User.class);
 
             if (!"Витя".equalsIgnoreCase(user.name)) {
-                String errorXml = "<response><error>This user does not exist.</error></response>";
-                sendResponse(exchange, 404, errorXml);
+                ErrorXml.message();
+                sendResponse(exchange, 404, ErrorXml.message());
                 return;
             }
 
