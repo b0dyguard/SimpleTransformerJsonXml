@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -29,14 +30,17 @@ public class User {
         return name;
     }
 
+    @JsonIgnore
     public String getActual_work() {
         return actualWork;
     }
 
+    @JsonIgnore
     public boolean isCurrent_status_active() {
         return currentStatusActive;
     }
 
+    @JsonIgnore
     public List<String> getPrevious_works() {
         return previousWorks;
     }
