@@ -24,4 +24,24 @@ public class User {
     public boolean currentStatusActive;
 
     public User() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public String getActual_work() {
+        return actualWork;
+    }
+
+    public boolean isCurrent_status_active() {
+        return currentStatusActive;
+    }
+
+    public List<String> getPrevious_works() {
+        return previousWorks;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }

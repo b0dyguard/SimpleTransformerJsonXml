@@ -43,6 +43,7 @@ public class Server {
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/convert", new ConvertHandler());
+        server.createContext("/create", new CreateHandler());
         server.setExecutor(null);
         server.start();
 
