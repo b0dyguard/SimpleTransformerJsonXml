@@ -9,7 +9,21 @@ import java.util.Properties;
 
 public class Server {
 
-    public static class Connection {
+    public static void startServer() throws IOException {
+
+        int port = Connection.getPort();
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/convert", new ConvertHandler());
+        server.createContext("/create", new CreateHandler());
+        server.setExecutor(null);
+        server.start();
+
+        System.out.println("Server started on port " + port);
+
+    }
+
+    private static class Connection {
 
         public static int port = 9000;
 
@@ -35,19 +49,5 @@ public class Server {
             }
             return port;
         }
-    }
-
-    public static void startServer() throws IOException {
-
-        int port = Connection.getPort();
-
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-        server.createContext("/convert", new ConvertHandler());
-        server.createContext("/create", new CreateHandler());
-        server.setExecutor(null);
-        server.start();
-
-        System.out.println("Server started on port " + port);
-
     }
 }
