@@ -9,11 +9,7 @@ import java.util.Properties;
 
 public class Server {
 
-    public static void startServer() throws IOException {
-
-        DatabaseInit.initDatabase();
-
-        CsvExporter.startBackgroundExport();
+    public static void start() throws IOException {
 
         int port = Connection.getPort();
 

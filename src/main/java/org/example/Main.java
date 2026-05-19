@@ -4,7 +4,11 @@ public class Main {
 
     static void main() throws Exception {
 
-        Server.startServer();
+        DatabaseInit.start();
+
+        CsvExporter.startBackgroundExport();
+
+        Server.start();
 
     }
 }

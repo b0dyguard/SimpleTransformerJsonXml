@@ -11,7 +11,7 @@ public class DatabaseInit {
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
-    public static void initDatabase() {
+    public static void start() {
         try (Connection conn = DriverManager.getConnection(JDBC_URL, "sa", "")) {
             Statement stmt = conn.createStatement();
 
