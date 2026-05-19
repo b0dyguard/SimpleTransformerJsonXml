@@ -14,8 +14,11 @@ public class Server {
         int port = Connection.getPort();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+
         server.createContext("/convert", new ConvertHandler());
         server.createContext("/create", new CreateHandler());
+        server.createContext("/read", new ReadHandler());
+
         server.setExecutor(null);
         server.start();
 
@@ -31,7 +34,7 @@ public class Server {
 
             Properties prop = new Properties();
 
-            try (InputStream in =  Main.class.getClassLoader().getResourceAsStream("application.conf")) {
+            try (InputStream in = Main.class.getClassLoader().getResourceAsStream("application.conf")) {
                 if (in == null) {
                     System.out.println("Can't find \"application.conf\". The default port is used: " + port);
                 } else {

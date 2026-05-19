@@ -6,6 +6,8 @@ public class Main {
 
         DatabaseInit.initDatabase();
 
+        CsvExporter.startBackgroundExport();
+
         Server.startServer();
 
     }

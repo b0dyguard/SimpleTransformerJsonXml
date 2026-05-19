@@ -28,8 +28,8 @@ public class DatabaseInit {
             stmt.execute("TRUNCATE TABLE users");
 
             String insertSql = "INSERT INTO users (name, age, actual_work, previous_works, current_status_active) VALUES " +
-                    "('Тимур', 22, 'Online Tours', 'Улгу, Белочка', true), " +
-                    "('Артём', 22, 'Ультра', 'УлГПУ, Улёт', true), " +
+                    "('Витя', 40, 'УАЗ', 'Улгу, Политех', true), " +
+                    "('Артем', 22, 'Ультра', 'УлГПУ, Улет', true), " +
                     "('Алексей', 23, 'Автозавод', 'КЭИ, Яндекс-доставка', false), " +
                     "('Никита', 21, 'УИ ГА', 'УИ ГА, Озон', true), " +
                     "('Елена', 24, 'Тинькофф', 'УлГТУ, Альфа-Банк', true), " +
