@@ -15,7 +15,7 @@ public class CsvExporter {
 
     public static int intervalMinutes = 1;
 
-    public static String targetDirectory = "C:/temp/exports/";
+    public static String targetDirectory = "C:/temp/export/";
 
     public static void startBackgroundExport() {
         Properties prop = new Properties();
@@ -30,7 +30,7 @@ public class CsvExporter {
                 String targetDirectoryValue = prop.getProperty("targetDirectory");
                 if (intervalMinutesValue != null && targetDirectoryValue != null) {
                     intervalMinutes = Integer.parseInt(intervalMinutesValue);
-                    targetDirectory = targetDirectoryValue;
+                    targetDirectory = targetDirectoryValue + "/";
                 } else {
                     System.out.println("Error in the configuration file \"application.conf\". Using default values.");
                 }
@@ -56,10 +56,11 @@ public class CsvExporter {
         String fileName = formattedDate + "_actual_users.csv";
 
         File directory = new File(targetDirectory);
+        String targetDirectoryCorrected = targetDirectory.replace('/', '\\');
         if (!directory.exists()) {
             boolean created = directory.mkdirs();
             if (created) {
-                System.out.println("[BG] Created new directory for backups: " + targetDirectory);
+                System.out.println("[BG] Created new directory for backups: " + targetDirectoryCorrected);
             }
         }
 
