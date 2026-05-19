@@ -12,10 +12,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class CsvExporter {
+
+    public static int intervalMinutes = 1;
+
+    public static String targetDirectory = "C:/temp/exports/";
+
     public static void startBackgroundExport() {
         Properties prop = new Properties();
-        int intervalMinutes = 1;
-        String targetDirectory = "C:/temp/exports/";
 
         try (InputStream in = Main.class.getClassLoader().getResourceAsStream("application.conf")) {
             if (in == null) {
@@ -23,10 +26,10 @@ public class CsvExporter {
             } else {
                 prop.load(in);
 
-                String intevalMinutesValue = prop.getProperty("intervalMinutes");
+                String intervalMinutesValue = prop.getProperty("intervalMinutes");
                 String targetDirectoryValue = prop.getProperty("targetDirectory");
-                if (intevalMinutesValue != null && targetDirectoryValue != null) {
-                    intervalMinutes = Integer.parseInt(intevalMinutesValue);
+                if (intervalMinutesValue != null && targetDirectoryValue != null) {
+                    intervalMinutes = Integer.parseInt(intervalMinutesValue);
                     targetDirectory = targetDirectoryValue;
                 } else {
                     System.out.println("Error in the configuration file \"application.conf\". Using default values.");

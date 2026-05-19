@@ -11,6 +11,10 @@ public class Server {
 
     public static void startServer() throws IOException {
 
+        DatabaseInit.initDatabase();
+
+        CsvExporter.startBackgroundExport();
+
         int port = Connection.getPort();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
