@@ -28,9 +28,15 @@ public class CsvExporter {
 
                 String intervalMinutesValue = prop.getProperty("intervalMinutes");
                 String targetDirectoryValue = prop.getProperty("targetDirectory");
-                if (!intervalMinutesValue.equals("") && !targetDirectoryValue.equals("")) {
-                    intervalMinutes = Integer.parseInt(intervalMinutesValue);
-                    targetDirectory = targetDirectoryValue + "/";
+                if (intervalMinutesValue != null && targetDirectoryValue != null) {
+                    boolean intervalMinutesValueExam = intervalMinutesValue.matches(".*[^0-9.*]");
+
+                    if (!intervalMinutesValue.equals("") && !targetDirectoryValue.equals("") && !intervalMinutesValueExam) {
+                        intervalMinutes = Integer.parseInt(intervalMinutesValue);
+                        targetDirectory = targetDirectoryValue;
+                    } else {
+                        System.out.println("Error in the configuration file \"application.conf\". Using default values.");
+                    }
                 } else {
                     System.out.println("Error in the configuration file \"application.conf\". Using default values.");
                 }
