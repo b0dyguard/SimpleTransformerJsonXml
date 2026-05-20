@@ -28,7 +28,7 @@ public class CsvExporter {
 
                 String intervalMinutesValue = prop.getProperty("intervalMinutes");
                 String targetDirectoryValue = prop.getProperty("targetDirectory");
-                if (intervalMinutesValue != null && targetDirectoryValue != null) {
+                if (!intervalMinutesValue.equals("") && !targetDirectoryValue.equals("")) {
                     intervalMinutes = Integer.parseInt(intervalMinutesValue);
                     targetDirectory = targetDirectoryValue + "/";
                 } else {

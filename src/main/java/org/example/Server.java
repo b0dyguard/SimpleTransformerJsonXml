@@ -41,7 +41,7 @@ public class Server {
                     prop.load(in);
 
                     String portValue = prop.getProperty("port");
-                    if (portValue != null) {
+                    if (!portValue.equals("")) {
                         port = Integer.parseInt(portValue);
                     } else {
                         System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
