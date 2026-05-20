@@ -13,37 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 public class CsvExporter {
 
-    public static int intervalMinutes = 1;
+    public static void startBackgroundExport() throws IOException {
 
-    public static String targetDirectory = "C:/temp/export/";
-
-    public static void startBackgroundExport() {
-        Properties prop = new Properties();
-
-        try (InputStream in = Main.class.getClassLoader().getResourceAsStream("application.conf")) {
-            if (in == null) {
-                System.out.println("\"application.conf\" not found in the project directory. Using default values.");
-            } else {
-                prop.load(in);
-
-                String intervalMinutesValue = prop.getProperty("intervalMinutes");
-                String targetDirectoryValue = prop.getProperty("targetDirectory");
-                if (intervalMinutesValue != null && targetDirectoryValue != null) {
-                    boolean intervalMinutesValueExam = intervalMinutesValue.matches(".*[^0-9.*]");
-
-                    if (!intervalMinutesValue.equals("") && !targetDirectoryValue.equals("") && !intervalMinutesValueExam) {
-                        intervalMinutes = Integer.parseInt(intervalMinutesValue);
-                        targetDirectory = targetDirectoryValue;
-                    } else {
-                        System.out.println("Error in the configuration file \"application.conf\". Using default values.");
-                    }
-                } else {
-                    System.out.println("Error in the configuration file \"application.conf\". Using default values.");
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading configuration file." + e.getMessage());
-        }
+        int intervalMinutes = PropertiesTake.getIntervalMinutes();
+        String targetDirectory = PropertiesTake.getTargetDirectory();
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 

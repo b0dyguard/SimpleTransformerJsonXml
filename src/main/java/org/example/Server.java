@@ -11,7 +11,7 @@ public class Server {
 
     public static void start() throws IOException {
 
-        int port = Connection.getPort();
+        int port = PropertiesTake.getPort();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
@@ -24,40 +24,5 @@ public class Server {
 
         System.out.println("Server started on port " + port);
 
-    }
-
-    private static class Connection {
-
-        public static int port = 9000;
-
-        public static int getPort() {
-
-            Properties prop = new Properties();
-
-            try (InputStream in = Main.class.getClassLoader().getResourceAsStream("application.conf")) {
-                if (in == null) {
-                    System.out.println("Can't find \"application.conf\". The default port is used: " + port);
-                } else {
-                    prop.load(in);
-
-                    String portValue = prop.getProperty("port");
-                    if (portValue != null) {
-
-                        boolean portExam = portValue.matches(".*[^0-9.*]");
-
-                        if (!portValue.equals("") && !portExam) {
-                            port = Integer.parseInt(portValue);
-                        } else {
-                            System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
-                        }
-                    } else {
-                        System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Error reading configuration: " + e.getMessage());
-            }
-            return port;
-        }
     }
 }
