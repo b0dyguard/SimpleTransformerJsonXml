@@ -54,6 +54,7 @@ public class CsvExporter {
             while (rs.next()) {
                 writer.append(rs.getString("id")).append(",");
                 writer.append(rs.getString("name")).append(",");
+                writer.append(rs.getString("age")).append(",");
                 writer.append(rs.getString("actual_work")).append(",");
 
                 String prevWorks = rs.getString("previous_works");

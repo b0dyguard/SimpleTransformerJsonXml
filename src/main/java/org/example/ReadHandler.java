@@ -35,7 +35,7 @@ public class ReadHandler implements HttpHandler {
             String ageStr = params.get("age");
             String actualWork = params.get("actual_work");
 
-            if (name.equals("") || ageStr.equals("") || actualWork.equals("")) {
+            if (name.isEmpty() || ageStr.isEmpty() || actualWork.isEmpty()) {
                 String badRequestXml = "<response><error>Missing required parameters: name, age, or actual_work</error></response>";
                 sendXmlResponse(exchange, 400, badRequestXml);
                 return;

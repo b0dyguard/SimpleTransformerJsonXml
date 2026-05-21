@@ -17,7 +17,7 @@ public class PropertiesTake {
         in = Main.class.getClassLoader().getResourceAsStream("application.conf");
 
         if  (in == null) {
-            System.out.println("Can't find \"application.conf\"");
+            System.out.println("\"application.conf\" not found in the project directory.");
             throw new FileNotFoundException();
         }
         return in;
@@ -34,26 +34,15 @@ public class PropertiesTake {
     public static int getIntervalMinutes() throws IOException {
 
         in = getProps();
+        propLoad();
 
-        if (in == null) {
-            System.out.println("\"application.conf\" not found in the project directory. The default \"intervalMinutes\" is used: " + intervalMinutes);
+        String intervalMinutesValue = prop.getProperty("intervalMinutes");
+        boolean intervalMinutesValueExam = !intervalMinutesValue.matches(".*[^0-9.*]");
+
+        if (intervalMinutesValue != null && !intervalMinutesValue.isEmpty() && intervalMinutesValueExam) {
+            intervalMinutes = Integer.parseInt(intervalMinutesValue);
         } else {
-
-            propLoad();
-
-            String intervalMinutesValue = prop.getProperty("intervalMinutes");
-
-            if (intervalMinutesValue != null) {
-                boolean intervalMinutesValueExam = !intervalMinutesValue.matches(".*[^0-9.*]");
-
-                if (!intervalMinutesValue.isEmpty() && intervalMinutesValueExam) {
-                    intervalMinutes = Integer.parseInt(intervalMinutesValue);
-                } else {
-                    System.out.println("Error in the value of \"intervalMinutes\" in the configuration file \"application.conf\". Using default value: " + intervalMinutes);
-                }
-            } else {
-                System.out.println("Error in the value of \"intervalMinutes\" in the configuration file \"application.conf\". Using default value: " + intervalMinutes);
-            }
+            System.out.println("Error in the value of \"intervalMinutes\" in the configuration file \"application.conf\". Using default value: " + intervalMinutes);
         }
         return intervalMinutes;
     }
@@ -61,53 +50,30 @@ public class PropertiesTake {
     public static String getTargetDirectory() throws IOException {
 
         in = getProps();
+        propLoad();
 
-            if (in == null) {
-                System.out.println("\"application.conf\" not found in the project directory. The default \"targetDirectory\" is used: "  + targetDirectory);
-            } else {
+        String targetDirectoryValue = prop.getProperty("targetDirectory");
 
-                propLoad();
-
-                String targetDirectoryValue = prop.getProperty("targetDirectory");
-
-                if (targetDirectoryValue != null) {
-
-                    if (!targetDirectoryValue.isEmpty()) {
-                        targetDirectory = targetDirectoryValue;
-                    } else {
-                        System.out.println("Error in the value of \"targetDirectory\" in the configuration file \"application.conf\". Using default value: " + targetDirectory);
-                    }
-                } else {
-                    System.out.println("Error in the value of \"targetDirectory\" in the configuration file \"application.conf\". Using default value: " + targetDirectory);
-                }
-            }
+        if (targetDirectoryValue != null && !targetDirectoryValue.isEmpty()) {
+            targetDirectory = targetDirectoryValue;
+        } else {
+            System.out.println("Error in the value of \"targetDirectory\" in the configuration file \"application.conf\". Using default value: " + targetDirectory);
+        }
         return targetDirectory;
     }
 
     public static int getPort() throws IOException {
+        in = getProps();
+        propLoad();
 
-        InputStream in = getProps();
+        String portValue = prop.getProperty("port");
+        boolean portExam = !portValue.matches(".*[^0-9.*]");
 
-            if (in == null) {
-                System.out.println("Can't find \"application.conf\". The default port is used: " + port);
-            } else {
-
-                propLoad();
-
-                String portValue = prop.getProperty("port");
-                if (portValue != null) {
-
-                    boolean portExam = !portValue.matches(".*[^0-9.*]");
-
-                    if (!portValue.isEmpty() && portExam) {
-                        port = Integer.parseInt(portValue);
-                    } else {
-                        System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
-                    }
-                } else {
-                    System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
-                }
-            }
+        if (portValue != null && !portValue.isEmpty() && portExam) {
+            port = Integer.parseInt(portValue);
+        } else {
+            System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
+        }
         return port;
     }
 }
