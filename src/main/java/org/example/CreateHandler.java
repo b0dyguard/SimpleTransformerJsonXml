@@ -40,7 +40,6 @@ public class CreateHandler implements HttpHandler {
         } catch (Exception e) {
             System.err.println("Error while creating user: " + e.getMessage());
             e.printStackTrace();
-
             String errorResponse = "<response>\n<error>Server error: " + e.getMessage() + "</error>\n</response>";
             sendXmlResponse(exchange, 500, errorResponse);
         }
