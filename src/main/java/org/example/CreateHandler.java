@@ -3,7 +3,6 @@ package org.example;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.h2.engine.Database;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +61,7 @@ public class CreateHandler implements HttpHandler {
     }
 
     private void sendXmlResponse(HttpExchange exchange, int statusCode, String responseText) throws IOException {
-        byte[] bytes = responseText.getBytes("UTF-8");
+        byte[] bytes = responseText.getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/xml; charset=UTF-8");
         exchange.sendResponseHeaders(statusCode, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
