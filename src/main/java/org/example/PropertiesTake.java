@@ -13,34 +13,38 @@ public class PropertiesTake {
     public static Properties prop = new Properties();
     public static InputStream in = null;
 
-    public static InputStream getProps() throws IOException {
-        in = Main.class.getClassLoader().getResourceAsStream("application.conf");
-
-        if  (in == null) {
-            System.out.println("\"application.conf\" not found in the project directory.");
-            throw new FileNotFoundException();
-        }
-        return in;
-    }
-
-    public static void propLoad() throws IOException {
+    public static void getProps() throws IOException {
         try {
-            prop.load(getProps());
+            in = Main.class.getClassLoader().getResourceAsStream("application.conf");
+            if (in == null) {
+                System.out.println("\"application.conf\" not found in the project directory.");
+                throw new FileNotFoundException();
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading configuration file." + e.getMessage());
+        }
+
+        try {
+            prop.load(in);
         } catch (IOException e) {
             System.err.println("Error reading configuration file." + e.getMessage());
         }
     }
 
+
     public static int getIntervalMinutes() throws IOException {
 
-        in = getProps();
-        propLoad();
+        getProps();
 
         String intervalMinutesValue = prop.getProperty("intervalMinutes");
-        boolean intervalMinutesValueExam = !intervalMinutesValue.matches(".*[^0-9.*]");
 
-        if (intervalMinutesValue != null && !intervalMinutesValue.isEmpty() && intervalMinutesValueExam) {
-            intervalMinutes = Integer.parseInt(intervalMinutesValue);
+        if (intervalMinutesValue != null && !intervalMinutesValue.isEmpty()) {
+            boolean intervalMinutesValueExam = intervalMinutesValue.matches("\\d+");
+            if (intervalMinutesValueExam) {
+                intervalMinutes = Integer.parseInt(intervalMinutesValue);
+            } else {
+                System.out.println("Error. The value of \"intervalMinutes\" in the configuration file \"application.conf\" is not a valid integer. Using default value: " + intervalMinutes);
+            }
         } else {
             System.out.println("Error in the value of \"intervalMinutes\" in the configuration file \"application.conf\". Using default value: " + intervalMinutes);
         }
@@ -49,8 +53,7 @@ public class PropertiesTake {
 
     public static String getTargetDirectory() throws IOException {
 
-        in = getProps();
-        propLoad();
+        getProps();
 
         String targetDirectoryValue = prop.getProperty("targetDirectory");
 
@@ -63,17 +66,21 @@ public class PropertiesTake {
     }
 
     public static int getPort() throws IOException {
-        in = getProps();
-        propLoad();
+
+        getProps();
 
         String portValue = prop.getProperty("port");
-        boolean portExam = !portValue.matches(".*[^0-9.*]");
 
-        if (portValue != null && !portValue.isEmpty() && portExam) {
-            port = Integer.parseInt(portValue);
-        } else {
-            System.out.println("Error in the configuration file \"application.conf\". The default port is used: " + port);
-        }
+            if (portValue != null && !portValue.isEmpty()) {
+                boolean portExam = portValue.matches("\\d+");
+                if (portExam) {
+                    port = Integer.parseInt(portValue);
+                } else  {
+                    System.out.println("Error. The value of \"port\" in the configuration file \"application.conf\" is not a valid integer. The default port is used: " + port);
+                }
+            } else {
+                System.out.println("Error in the value of \"port\" in the configuration file \"application.conf\". The default port is used: " + port);
+            }
         return port;
+        }
     }
-}
