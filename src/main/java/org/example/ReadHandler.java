@@ -3,7 +3,6 @@ package org.example;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.h2.engine.Database;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -6,14 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class CsvExporter {
 
-    public static void startBackgroundExport() throws IOException {
+    public static void startBackgroundExport() {
 
         int intervalMinutes = PropertiesTake.getIntervalMinutes();
         String targetDirectory = PropertiesTake.getTargetDirectory();
@@ -21,9 +20,7 @@ public class CsvExporter {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
         final String finalDir = targetDirectory;
-        scheduler.scheduleAtFixedRate(() -> {
-            exportData(finalDir);
-        }, 0, intervalMinutes, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(() -> exportData(finalDir), 0, intervalMinutes, TimeUnit.MINUTES);
     }
 
     private static void exportData(String targetDirectory) {

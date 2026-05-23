@@ -3,9 +3,7 @@ package org.example;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
-import java.util.Properties;
 
 public class Server {
 

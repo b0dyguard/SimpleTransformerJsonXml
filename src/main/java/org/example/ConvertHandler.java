@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class ConvertHandler implements HttpHandler {
     private final ObjectMapper jsonMapper = new ObjectMapper();
@@ -38,7 +39,7 @@ public class ConvertHandler implements HttpHandler {
 
     private void sendResponse(HttpExchange exchange, int status, String content) throws IOException {
         exchange.getResponseHeaders().set("Content-Type", "application/xml;charset=UTF-8");
-        byte[] bytes = content.getBytes("UTF-8");
+        byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
         exchange.sendResponseHeaders(status, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(bytes);

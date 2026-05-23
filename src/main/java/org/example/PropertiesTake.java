@@ -13,7 +13,7 @@ public class PropertiesTake {
     public static Properties prop = new Properties();
     public static InputStream in = null;
 
-    public static void getProps() throws IOException {
+    public static void getProps() {
         try {
             in = Main.class.getClassLoader().getResourceAsStream("application.conf");
             if (in == null) {
@@ -32,7 +32,7 @@ public class PropertiesTake {
     }
 
 
-    public static int getIntervalMinutes() throws IOException {
+    public static int getIntervalMinutes() {
 
         getProps();
 
@@ -51,7 +51,7 @@ public class PropertiesTake {
         return intervalMinutes;
     }
 
-    public static String getTargetDirectory() throws IOException {
+    public static String getTargetDirectory() {
 
         getProps();
 
@@ -65,7 +65,7 @@ public class PropertiesTake {
         return targetDirectory;
     }
 
-    public static int getPort() throws IOException {
+    public static int getPort() {
 
         getProps();
 
