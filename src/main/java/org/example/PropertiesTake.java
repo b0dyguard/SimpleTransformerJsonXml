@@ -13,7 +13,7 @@ public class PropertiesTake {
     public static Properties prop = new Properties();
     public static InputStream in = null;
 
-    public static void getProps() {
+    private static void getProps() {
         try {
             in = Main.class.getClassLoader().getResourceAsStream("application.conf");
             if (in == null) {
