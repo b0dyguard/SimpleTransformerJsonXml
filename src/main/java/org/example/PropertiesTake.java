@@ -14,6 +14,7 @@ public class PropertiesTake {
     public static InputStream in = null;
 
     private static void getProps() {
+
         try {
             in = Main.class.getClassLoader().getResourceAsStream("application.conf");
             if (in == null) {
@@ -72,14 +73,15 @@ public class PropertiesTake {
         String portValue = prop.getProperty("port");
 
             if (portValue != null && !portValue.isEmpty()) {
+                portValue =  portValue.trim();
                 boolean portExam = portValue.matches("\\d+");
                 if (portExam) {
                     port = Integer.parseInt(portValue);
-                } else  {
+                } else {
                     System.out.println("Error. The value of \"port\" in the configuration file \"application.conf\" is not a valid integer. The default port is used: " + port);
                 }
             } else {
-                System.out.println("Error in the value of \"port\" in the configuration file \"application.conf\". The default port is used: " + port);
+                System.out.println("Error. The value of \"port\" in the configuration file \"application.conf\" is not a valid integer. The default port is used: " + port);
             }
         return port;
         }
